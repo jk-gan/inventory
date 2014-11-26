@@ -4,7 +4,7 @@
     <div class="row-fluid">
         
         
-        <?php echo form_open('sales/add_sale'); ?>
+        <?php echo form_open('sale/add_sale'); ?>
         <?php echo validation_errors();?>
         <div class="input-group">
         <table width="600" border="1" cellspacing="1" cellpadding="5" class="table_list">

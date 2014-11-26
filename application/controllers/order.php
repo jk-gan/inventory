@@ -55,6 +55,7 @@ class Order extends CI_Controller
 					'total'     =>  $this->input->post('total'),
 					'orderStatus'	=>	'pending',
 					'arrived'	=>	serialize($arrived),
+					'empID'		=>	$this->session->userdata('id'),
 					'paymentStatus'    =>	$this->input->post('paymentStatus')	
 					);
 

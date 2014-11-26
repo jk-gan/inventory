@@ -36,6 +36,7 @@ class Sale extends CI_Controller
 
 				// insert to tb_sale
 				$data['total'] = $this->input->post('total');
+				$data['totalProfit'] = 0;
 				for($i = 0; $i<sizeof($item); $i++)
 				{	
 					$profit = $this->sale_model->get_profit($item[$i]);
@@ -43,21 +44,21 @@ class Sale extends CI_Controller
 					$data['totalProfit'] += $profit;
 				}
 				$data['dateAdded']	=	date("Y-m-d H:i:s");
-				$data['empID'] = $this->session->userdata('name');
+				$data['empID'] = $this->session->userdata('id');
 				$id = $this->sale_model->insert_sale($data);
 
 				for($i = 0; $i<sizeof($item); $i++)
 				{
 					$insert = array(
-					'iventoryID'	=>	$item[$i],
+					'inventoryID'	=>	$item[$i],
 					'quantity'	=>	$quantity[$i],
 					'retailPrice'		=>	$price[$i],
-					'empID' => $this->session->userdata('name'),
+					'empID' => $this->session->userdata('id'),
 					'saleID' => $id,
 					'dateAdded'	=>	date("Y-m-d H:i:s")
 					);
 
-				$this->category_model->add($insert);
+				$this->sale_model->add($insert);
 				}
 				
 				redirect('category');

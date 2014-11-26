@@ -2,12 +2,17 @@
 
 class Sale_model extends CI_Model
 {	
-	// public function insert_sale($data)
-	// {
-	// 	$this->db->insert('tb_sales', $data);
-	// 	return $this->db->insert_id()；
-		
-	// }
+	public function insert_sale($data)
+	{
+		$this->db->insert('tb_sales', $data);
+		$id = $this->db->insert_id();
+		return $id;
+	}
+
+	public function add($data)
+	{
+		$this->db->insert('tb_sale_item', $data);
+	} 
 	
 	public function get_profit($id)
 	{
