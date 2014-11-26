@@ -61,7 +61,7 @@ class Sale extends CI_Controller
 				$this->sale_model->add($insert);
 				}
 				
-				redirect('category');
+				redirect('sale');
 			}
         }
         
@@ -83,7 +83,6 @@ class Sale extends CI_Controller
 		
 		$data['header']   	= $this->load->view('include/header', $page, true);
 		$data['breadcrumb'] 	= $this->load->view('include/breadcrumb', $page, true);
-        //$data['_data']          = $this->payment_model->get_payments();
         $data['content']   = 'view_sale';
 		
 		// $config["base_url"] = base_url()."vendor/index";
@@ -96,7 +95,8 @@ class Sale extends CI_Controller
 		// $data["results"] = $this->payment_model->limit($config["per_page"], $start);
 		// $data["links"] = $this->pagination->create_links();
 		
-        $data['result'] = $this->sale_model->get_all();
+        $data['results'] = $this->sale_model->get_all();
+        $this->load->view('template/master', $data); 
     }
 
 	// public function edit($id="")

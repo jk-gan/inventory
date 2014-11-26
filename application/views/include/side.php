@@ -17,7 +17,7 @@
 
     <a href="#sales-menu" class="nav-header" data-toggle="collapse"><li>Sales <span class="glyphicon glyphicon-chevron-down"></span></li></a>
     <ul id="sales-menu" class="collapse in">
-        <a href="#" class="nav-content"><li>Sales List</li></a>
+        <a href="<?php echo base_url();?>sale/all" class="nav-content"><li>Sales List</li></a>
         <a href="<?php echo base_url();?>sale/add_sale" class="nav-content"><li>Add Sale</li></a>
     </ul>
 

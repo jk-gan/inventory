@@ -26,10 +26,7 @@ class Sale_model extends CI_Model
 	public function get_all()
 	{
 		$this->db->select('*');
-		$this->db->from('tb_sales as i');
-		$this->db->join('tb_category as c', 'i.categoryID = c.categoryID');
-		$this->db->where('i.status', 'active');
-		$this->db->join('tb_vendors as v', 'i.vendorID = v.vendorID');
+		$this->db->from('tb_sales');
 		$query = $this->db->get();
 		return $query->result_array();      
 		// $query = $this->db->get('tb_inventory');
