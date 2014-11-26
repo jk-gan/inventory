@@ -47,6 +47,9 @@ class Sale extends CI_Controller
 				$data['dateAdded']	=	date("Y-m-d H:i:s");
 				$data['empID'] = $this->session->userdata('id');
 				$id = $this->sale_model->insert_sale($data);
+				
+				$addnew['receiptID'] = "SE_".$id;
+				$this->sale_model->update($id, $addnew);
 
 				for($i = 0; $i<sizeof($item); $i++)
 				{
@@ -63,6 +66,8 @@ class Sale extends CI_Controller
 				$this->sale_model->add($insert);
 				}
 				
+				$new['pdf'] = $this->create_pdf($id);
+				$this->sale_model->update($id, $new);
 				redirect('sale');
 			}
         }
@@ -124,7 +129,7 @@ class Sale extends CI_Controller
 		echo $price[0]['retailPrice'];
 	}
 
-public function create_pdf($id = "") 
+public function create_pdf($id = "")
 {
     //============================================================+
     // File name   : example_001.php
@@ -162,7 +167,7 @@ public function create_pdf($id = "")
     $pdf->SetKeywords('TCPDF, PDF, example, test, guide');   
  
     // set default header data
-    $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
+    $pdf->SetHeaderData("chess_logo.png", 25, "Shopping receipt", "by XXX IT Shop", array(0,64,255), array(0,64,128));
     $pdf->setFooterData(array(0,64,0), array(0,64,128)); 
  
     // set header and footer fonts
@@ -217,22 +222,24 @@ public function create_pdf($id = "")
 // EOD;
     $data['results'] = $this->sale_model->get_sale_for_pdf($id);
     $html = $this->load->view('pdf/sale','',true);
-    $html = str_replace("[date;;]", $data['results'][0]['dateAdded'], $html);
+    $html = str_replace("[date;;]", mdate("%Y-%m-%d", human_to_unix($data['results'][0]['dateAdded'])), $html);
     
     $_list = NULL;
     $i = 1;
     foreach($data['results'] as $row)
     {
         $_list .= '<tr>
-                        <td>'.$i.'</td>
-                        <td>'.$row['itemName'].'</td>
-                        <td>'.$row['quantity'].'</td>
-                        <td>'.$row['retailPrice'].'</td>
-                        <td>'.$row['subtotal'].'</td>
+                        <td style="border:solid black 1px">'.$i.'</td>
+                        <td style="border:solid black 1px; text-align:left">'.$row['itemName'].'</td>
+                        <td style="border:solid black 1px">'.$row['quantity'].'</td>
+                        <td style="border:solid black 1px">'.$row['retailPrice'].'</td>
+                        <td style="border:solid black 1px">'.$row['subtotal'].'</td>
                     </tr>';
 		$i++;
 	}
+	$html = str_replace("[receiptNo;;]", "RE_".$id, $html);
 	$html = str_replace("[list;;]", $_list, $html);
+	$html = str_replace("[total;;]", $data['results'][0]['total'], $html);
     // str_replace("[list;;]", $list, $html);
  
     // Print text using writeHTMLCell()
@@ -242,8 +249,9 @@ public function create_pdf($id = "")
  
     // Close and output PDF document
     // This method has several options, check the source code documentation for more information.
-    $pdf->Output('assets/pdf/sale/sale_pdf_id_'.$id.'.pdf', 'FI');    
- 
+    $filename = "sale_pdf_id_".$id.'.pdf';
+    $pdf->Output('assets/pdf/sale/'.$filename, 'FI');    
+    return $filename;
     //============================================================+
     // END OF FILE
     //============================================================+

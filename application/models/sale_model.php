@@ -35,13 +35,19 @@ class Sale_model extends CI_Model
 
 	public function get_sale_for_pdf($id)
 	{
-		$this->db->select('s.total, si.quantity, si.retailPrice, si.subtotal, i.itemName, s.dateAdded');
+		$this->db->select('s.total, si.quantity, si.retailPrice, si.subtotal, i.itemName, s.dateAdded, s.receiptID');
 		$this->db->from('tb_sales as s');
 		$this->db->join('tb_sale_item as si', 's.saleID = si.saleID');
 		$this->db->where('s.saleID', $id);
 		$this->db->join('tb_inventory as i', 'si.inventoryID = i.inventoryID');
 		$query = $this->db->get();
 		return $query->result_array();
+	}
+
+	public function update($id, $data)
+	{
+		$this->db->where('saleID', $id);
+		$this->db->update('tb_sales', $data);
 	}
 
 	// public function limit($limit, $start) 
