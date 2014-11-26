@@ -23,6 +23,21 @@ $(document).ready(function(){
 
 	});
 
+  $("#addsalerow").click(function(){
+      $(".sales-row:last").after('<tr class="sales-row">'+
+                  '<td>'+
+                    '<select name="item[]" class="form-control item" onchange="showRetailPrice(this.value, this.parentNode.parentNode)">'+
+                        '<option value="">Choose an Inventory</option>'+
+                    '</select>'+
+                  '</td>'+
+                  '<td><input class="quantity_r form-control" type="number" name="quantity[]" value="0" onchange="updateSubPrice(this.value, this.parentNode.parentNode)"></td>'+
+                  '<td><input class="price_r form-control" type="text" name="price[]" value="0.00" /></td>'+
+                  '<td><input class="form-control" type="text" name="subtotal[]" value="0.00"/></td>'+
+                '</tr>');
+      // if ($(".delete").length > 0) $(".delete").show();
+      showItem();
+  });
+
 // bind();
 // 
 	// $(".delete").on('click',function(){
@@ -77,21 +92,6 @@ $(document).ready(function(){
       document.getElementById("total").value = total.toFixed(2);
     } 
 
-
-    // function update_price() {
-    //     var row     = $(this).parents('.order-row');
-    //     var price   = row.find('.price_r').val().replace("RM","");//* row.find('.qty').val();
-    //     var quantity   = row.find('.quantity_r');
-    //     //price       = roundNumber(price,2);
-    //     isNaN(price) ? row.find('.price_r').html("N/A") : row.find('.price_r').html("RM" + price);
-    //     update_total();
-    // }
-
-    // function bind() {
-    //     $(".price_r").blur(update_price);
-    // }
-
-
 function showUser(str) 
 {
   if (window.XMLHttpRequest) 
@@ -136,17 +136,6 @@ function showUser(str)
 
 function addItem(str) 
 {
- //  if (str=="") 
- //  {
- //  	var x = document.getElementsByClassName("item");
-	// var i;
-	// for (i = 0; i < x.length; i++) 
-	// {
- //    	x[i].innerHTML="";
-	// }
- //    return;
- //  } 
-
   if (window.XMLHttpRequest) 
   {
     // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -180,17 +169,6 @@ function addItem(str)
 
 function showPrice(str, val1) 
 {
- //  if (str=="") 
- //  {
- //  	var x = document.getElementsByClassName("item");
-	// var i;
-	// for (i = 0; i < x.length; i++) 
-	// {
- //    	x[i].innerHTML="";
-	// }
- //    return;
- //  } 
-
   if (window.XMLHttpRequest) 
   {
     // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -227,7 +205,76 @@ function showPrice(str, val1)
   xmlhttp.send();
 }
 
+function showRetailPrice(str, val1) 
+{
+  if (window.XMLHttpRequest) 
+  {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } 
+  else 
+  { // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+  xmlhttp.onreadystatechange=function() 
+  {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) 
+    {
+         var x = val1.cells;
+        // var y = str1.cells[2].namedItem("quantity[]");
+      x[1].childNodes[0].value='1';
+      x[2].childNodes[0].value=xmlhttp.responseText;
+      x[3].childNodes[0].value=x[2].childNodes[0].value;
+
+      //update total
+      var total = 0;
+      var price = document.getElementsByName("subtotal[]");
+      var i;
+      var length = price.length;
+      for (i = 0; i < length; i++) 
+      {
+          total += Number(price[i].value);
+      }
+      document.getElementById("total").value = total.toFixed(2);
+    }
+  }
+  xmlhttp.open("GET","get_price/"+str,true);
+  xmlhttp.send();
+}
+
 document.getElementById("back-btn").onclick = function()
                                           { 
                                               history.back() 
                                           };
+function showItem() 
+{
+  if (window.XMLHttpRequest) 
+  {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } 
+  else 
+  { // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+  xmlhttp.onreadystatechange=function() 
+  {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) 
+    {
+      var x = document.getElementsByClassName("item");
+      var i;
+      for (i = 0; i < x.length; i++) 
+      {
+          if(x[i].value === "")
+          {
+            x[i].innerHTML=xmlhttp.responseText;
+          }
+      }
+    }
+
+  }
+  xmlhttp.open("GET","get_item",true);
+  xmlhttp.send();
+}
