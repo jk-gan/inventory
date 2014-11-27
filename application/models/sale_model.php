@@ -27,6 +27,7 @@ class Sale_model extends CI_Model
 	{
 		$this->db->select('*');
 		$this->db->from('tb_sales');
+		$this->db->order_by("dateAdded", "desc");
 		$query = $this->db->get();
 		return $query->result_array();      
 		// $query = $this->db->get('tb_inventory');
@@ -50,6 +51,13 @@ class Sale_model extends CI_Model
 		$this->db->update('tb_sales', $data);
 	}
 
+	public function get_quantity($id)
+	{
+		$this->db->select('quantity');
+		$this->db->where('inventoryID', $id);
+		$query = $this->db->get('tb_inventory');
+		return $query->result_array();
+	}
 	// public function limit($limit, $start) 
 	// {   
 	// 	$this->db->select('*');

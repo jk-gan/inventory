@@ -13,7 +13,7 @@ $(document).ready(function(){
 	$("#addrow").click(function(){
 	    $(".order-row:last").after('<tr class="order-row">' + 
 											'<td><select name="item[]" class="form-control item" onchange="showPrice(this.value, this.parentNode.parentNode)"><option value="">Choose an Inventory</option></select></td>'+
-						                  	'<td><input class="quantity_r form-control" type="number" name="quantity[]" value="0" onchange="updateSubPrice(this.value, this.parentNode.parentNode)"></td>'+
+						                  	'<td><input class="quantity_r form-control" type="number" min="0" name="quantity[]" value="0" onchange="updateSubPrice(this.value, this.parentNode.parentNode)"></td>'+
 						                  	'<td><input class="price_r form-control" type="text" name="price[]" value="0.00" /></td>'+
 						                  	'<td><input class="form-control" type="text" name="subtotal[]" value="0.00" /></td>'+
                                 '<input type="hidden" name="arrived[]" value="0">'+
@@ -30,7 +30,7 @@ $(document).ready(function(){
                         '<option value="">Choose an Inventory</option>'+
                     '</select>'+
                   '</td>'+
-                  '<td><input class="quantity_r form-control" type="number" name="quantity[]" value="0" onchange="updateSubPrice(this.value, this.parentNode.parentNode)"></td>'+
+                  '<td><input class="quantity_r form-control" type="number" min="0" name="quantity[]" value="0" onchange="updateSubPrice(this.value, this.parentNode.parentNode)"></td>'+
                   '<td><input class="price_r form-control" type="text" name="price[]" value="0.00" /></td>'+
                   '<td><input class="form-control" type="text" name="subtotal[]" value="0.00"/></td>'+
                 '</tr>');
@@ -158,12 +158,36 @@ function addItem(str)
 			{
 				x[i].innerHTML=xmlhttp.responseText;
 			}
-    		
 		}
-
 }
   }
   xmlhttp.open("GET","get_item/"+str,true);
+  xmlhttp.send();
+}
+
+function setMaxQuantity(str, val1) 
+{
+  if (window.XMLHttpRequest) 
+  {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } 
+  else 
+  { // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+  xmlhttp.onreadystatechange=function() 
+  {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+        var x = val1.cells;
+        var quantity = xmlhttp.responseText;
+        x[1].childNodes[0].setAttribute("max", quantity);
+    }
+
+  }
+  xmlhttp.open("GET","get_quantity/"+str,true);
   xmlhttp.send();
 }
 
@@ -183,11 +207,11 @@ function showPrice(str, val1)
   {
     if (xmlhttp.readyState==4 && xmlhttp.status==200) 
     {
-    	   var x = val1.cells;
+    	 var x = val1.cells;
         // var y = str1.cells[2].namedItem("quantity[]");
-      x[1].childNodes[0].value='1';
-    	x[2].childNodes[0].value=xmlhttp.responseText;
-      x[3].childNodes[0].value=x[2].childNodes[0].value;
+        x[1].childNodes[0].value='1';
+      	x[2].childNodes[0].value=xmlhttp.responseText;
+        x[3].childNodes[0].value=x[2].childNodes[0].value;
 
       //update total
       var total = 0;
@@ -199,6 +223,7 @@ function showPrice(str, val1)
           total += Number(price[i].value);
       }
       document.getElementById("total").value = total.toFixed(2);
+      setMaxQuantity(str, val1);
     }
   }
   xmlhttp.open("GET","get_price/"+str,true);
@@ -237,6 +262,7 @@ function showRetailPrice(str, val1)
           total += Number(price[i].value);
       }
       document.getElementById("total").value = total.toFixed(2);
+      setMaxQuantity(str, val1);
     }
   }
   xmlhttp.open("GET","get_price/"+str,true);

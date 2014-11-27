@@ -162,4 +162,11 @@ class Order extends CI_Controller
 		$price = $this->inventory_model->get_cost_by_id($id);
 		echo $price[0]['cost'];
 	}
+
+	public function get_quantity($id="")
+	{
+		$data = $this->inventory_model->get_quantity($id);
+		echo $data[0]['quantity'];
+	}
+
 }

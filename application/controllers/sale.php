@@ -34,6 +34,14 @@ class Sale extends CI_Controller
 				$price = $this->input->post('price');
 				$subtotal = $this->input->post('subtotal');
 
+				for($i = 0; $i<sizeof($item); $i++)
+				{
+					$current_quantity = $this->sale_model->get_quantity($item[$i]);
+					$item_quantity['quantity'] = $current_quantity[0]['quantity'] - $quantity[$i];
+					if($item_quantity['quantity'] > 0)
+						$this->sale_model->update($item[$i], $item_quantity);
+				}
+
 
 				// insert to tb_sale
 				$data['total'] = $this->input->post('total');
@@ -120,6 +128,12 @@ class Sale extends CI_Controller
 	        echo '</option>';
 	    }
 
+	}
+
+	public function get_quantity($id="")
+	{
+		$data = $this->inventory_model->get_quantity($id);
+		echo $data[0]['quantity'];
 	}
 
 	public function get_price($id="")
@@ -250,7 +264,7 @@ public function create_pdf($id = "")
     // Close and output PDF document
     // This method has several options, check the source code documentation for more information.
     $filename = "sale_pdf_id_".$id.'.pdf';
-    $pdf->Output('assets/pdf/sale/'.$filename, 'FI');    
+    $pdf->Output('assets/pdf/sale/'.$filename, 'F');    
     return $filename;
     //============================================================+
     // END OF FILE

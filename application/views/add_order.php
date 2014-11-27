@@ -60,7 +60,7 @@
                         <option value="">Choose an Inventory</option>
                     </select>
                   </td>
-                  <td><input class="quantity_r form-control" type="number" name="quantity[]" value="0" onchange="updateSubPrice(this.value, this.parentNode.parentNode)"></td>
+                  <td><input class="quantity_r form-control" type="number" min="0" name="quantity[]" value="0" onchange="updateSubPrice(this.value, this.parentNode.parentNode)"></td>
                   <td><input class="price_r form-control" type="text" name="price[]" value="0.00" /></td>
                   <td><input class="form-control" type="text" name="subtotal[]" value="0.00"/></td>
                   <input type="hidden" name="arrived[]" value="0">

@@ -7,7 +7,7 @@
                         <td>'.$row['dateAdded'].'</td>
                         <td>'.$row['total'].'</td>
                         <td>'.$row['totalProfit'].'</td>
-                        <td><a href="'.base_url().'assets/pdf/sale/'.$row['pdf'].'" target="_blank">[pdf file]</a></td>
+                        <td><a href="'.base_url().'assets/pdf/sale/'.$row['pdf'].'" target="_blank"><span class="glyphicon glyphicon-file bigger-icon" data-toggle="tooltip" data-placement="right" title="pdf"></span></a></td>
                     </tr>';
 $i++;
     }

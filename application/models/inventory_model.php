@@ -112,4 +112,12 @@ class Inventory_model extends CI_Model
 		$result = $query->result_array();
 		return $result[0]['itemName']; 
 	}
+
+	public function get_quantity($id)
+	{
+		$this->db->select('quantity');
+		$this->db->where('inventoryID', $id);
+		$query = $this->db->get('tb_inventory');
+		return $query->result_array();
+	}
 }	
