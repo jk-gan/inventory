@@ -36,10 +36,9 @@ class Sale extends CI_Controller
 
 				for($i = 0; $i<sizeof($item); $i++)
 				{
-					$current_quantity = $this->sale_model->get_quantity($item[$i]);
-					$item_quantity['quantity'] = $current_quantity[0]['quantity'] - $quantity[$i];
-					if($item_quantity['quantity'] > 0)
-						$this->sale_model->update($item[$i], $item_quantity);
+					$current = $this->sale_model->get_quantity($item[$i]);
+					$item_quantity['quantity'] = $current[0]['quantity'] - $quantity[$i];
+					$this->inventory_model->edit($item[$i], $item_quantity);
 				}
 
 

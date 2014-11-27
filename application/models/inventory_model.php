@@ -63,6 +63,7 @@ class Inventory_model extends CI_Model
 		$this->db->select('inventoryID, itemName');
 		$this->db->where('vendorID', $id);
 		$this->db->where('status', 'active');
+		$this->db->where('quantity >', 0);
 		$query = $this->db->get('tb_inventory');
 
 		return $query->result_array();
@@ -72,6 +73,7 @@ class Inventory_model extends CI_Model
 	{
 		$this->db->select('inventoryID, itemName');
 		$this->db->where('status', 'active');
+		$this->db->where('quantity >', 0);
 		$query = $this->db->get('tb_inventory');
 
 		return $query->result_array();

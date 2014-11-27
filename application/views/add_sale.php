@@ -34,7 +34,7 @@
                 </tr>
                 <tr style="background-color: #eee; font-weight: bold; text-align: center;">
                   <td width="250px">Item</td>
-                  <td>Quantity</td>
+                  <td width="100px">Quantity</td>
                   <td>Price per unit(RM)</td>
                   <td>Subtotal(RM)</td>
                 </tr>
@@ -48,7 +48,7 @@
                       <?php }?>
                     </select>
                   </td>
-                  <td><input class="quantity_r form-control" type="number" min="0" max="1" name="quantity[]" value="0" onchange="updateSubPrice(this.value, this.parentNode.parentNode)"></td>
+                  <td><input class="quantity_r form-control" type="number" min="0" name="quantity[]" value="0" onchange="updateSubPrice(this.value, this.parentNode.parentNode)"></td>
                   <td><input class="price_r form-control" type="text" name="price[]" value="0.00" /></td>
                   <td><input class="form-control" type="text" name="subtotal[]" value="0.00"/></td>
                 </tr>
