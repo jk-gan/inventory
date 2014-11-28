@@ -21,6 +21,7 @@ class Order_model extends CI_Model
 		$this->db->select('*');
 		$this->db->from('tb_order');
 		$this->db->join('tb_vendors', 'tb_order.vendorID = tb_vendors.vendorID');
+		$this->db->order_by("tb_order.orderDate", "asc");
 		$query = $this->db->get();
 		return $query->result_array();
 	}

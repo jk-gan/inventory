@@ -10,13 +10,13 @@
 			<tr>
 				<td width="30px">&nbsp;</td>
 				<td width="260px">Vendor</td>
-				<td width="80px">[vendor;;]</td>
+				<td width="80px">&nbsp;</td>
 				<td width="110px" style="border:solid black 1px; background-color:#F8F594">Receipt ID</td>
 				<td width="130px" style="border:solid black 1px; text-align:center">[receiptNo;;]</td>
 			</tr>
 			<tr>
 				<td width="30px">&nbsp;</td>
-				<td width="260px">&nbsp;</td>
+				<td width="260px">[vendor;;]</td>
 				<td width="80px">&nbsp;</td>
 				<td width="110px" style="border:solid black 1px; background-color:#F8F594">Date</td>
 				<td width="130px" style="border:solid black 1px; text-align:center">[date;;]</td>

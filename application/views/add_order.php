@@ -15,10 +15,10 @@
               <td>&nbsp;</td>
               <td>&nbsp;</td>
             </tr>
-            <tr>
+<!--             <tr>
                 <td width="150" height="34"><strong>Order Date<span class="required">*</span></strong></td>
                 <td><input type="date" name="orderDate" value="" class="form-control" /></td>
-            </tr>
+            </tr> -->
 			<!--
             <tr>
                 <td width="100"><strong>Description</strong></td>

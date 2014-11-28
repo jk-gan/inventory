@@ -25,7 +25,6 @@ class Order extends CI_Controller
 	{
 		if ($this->input->server('REQUEST_METHOD') === 'POST')
 		{
-            $this->form_validation->set_rules('orderDate', 'Order Date', 'required');
 			$this->form_validation->set_rules('vendor', 'Vendor', 'required');
 			$this->form_validation->set_rules('item', 'Item', 'required');
 			$this->form_validation->set_rules('quantity', 'Quantity', 'required');
@@ -46,7 +45,7 @@ class Order extends CI_Controller
 				}
 
 				$insert = array(
-					'orderDate' =>	$this->input->post('orderDate'),
+					'orderDate' =>	date("Y-m-d"),
 					'vendorID'  =>	$this->input->post('vendor'),
 					'item'      =>	serialize($item),
 					'quantity'   =>	serialize($quantity),
