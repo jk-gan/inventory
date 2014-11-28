@@ -9,7 +9,7 @@
                         <td>'.$row['orderStatus'].'</td>
                         <td>'.$row['paymentStatus'].'</td>
                         <td><a href="'.base_url().'order/check/'.$row['orderID'].'">[check]</td>
-                        </td>
+                        <td><a href="'.base_url().'assets/pdf/order/'.$row['pdf'].'" target="_blank"><span class="glyphicon glyphicon-file bigger-icon" data-toggle="tooltip" data-placement="right" title="pdf"></span></a></td>
                     </tr>';
         $i++;    
     }
@@ -27,6 +27,7 @@
                 <td width="150px">Order Status</td>
                 <td width="150px">Payment Status</td>
                 <td width="60px">Check</td>
+                <td width="60px">PDF</td>
             </tr>
             <?php echo $_list; ?>
         </table>

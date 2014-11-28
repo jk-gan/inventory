@@ -90,7 +90,7 @@
                       <input type="radio" name="paymentStatus" value="paid"> Paid
                     </label>
                     <label class="radio-inline"> 
-                      <input type="radio" name="paymentStatus" value="pending"> Pending
+                      <input type="radio" name="paymentStatus" value="pending" checked="checked"> Pending
                     </label>
                 </td>
             </tr>

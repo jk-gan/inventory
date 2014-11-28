@@ -55,7 +55,7 @@ class Sale extends CI_Controller
 				$data['empID'] = $this->session->userdata('id');
 				$id = $this->sale_model->insert_sale($data);
 				
-				$addnew['receiptID'] = "SE_".$id;
+				$addnew['receiptID'] = "SR_".$id;
 				$this->sale_model->update($id, $addnew);
 
 				for($i = 0; $i<sizeof($item); $i++)
@@ -74,6 +74,7 @@ class Sale extends CI_Controller
 				}
 				
 				$new['pdf'] = $this->create_pdf($id);
+				$new['receiptID'] = "SR_".$id;
 				$this->sale_model->update($id, $new);
 				redirect('sale');
 			}
@@ -87,7 +88,7 @@ class Sale extends CI_Controller
         $data['content'] = 'add_sale';
 		$data['item'] = $this->inventory_model->get_items();
 
-        $this->load->view('template/master', $data); 
+        $this->load->view('template/master', $data);
 	}
 
 	public function all()
@@ -250,7 +251,7 @@ public function create_pdf($id = "")
                     </tr>';
 		$i++;
 	}
-	$html = str_replace("[receiptNo;;]", "RE_".$id, $html);
+	$html = str_replace("[receiptNo;;]", "SR_".$id, $html);
 	$html = str_replace("[list;;]", $_list, $html);
 	$html = str_replace("[total;;]", $data['results'][0]['total'], $html);
     // str_replace("[list;;]", $list, $html);

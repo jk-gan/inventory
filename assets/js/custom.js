@@ -223,7 +223,6 @@ function showPrice(str, val1)
           total += Number(price[i].value);
       }
       document.getElementById("total").value = total.toFixed(2);
-      setMaxQuantity(str, val1);
     }
   }
   xmlhttp.open("GET","get_price/"+str,true);

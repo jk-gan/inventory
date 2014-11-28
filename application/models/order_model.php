@@ -5,6 +5,14 @@ class Order_model extends CI_Model
 	public function add($insert)
 	{
 		$this->db->insert('tb_order', $insert);
+		$id = $this->db->insert_id();
+		return $id;
+	}
+
+	public function update($id, $data)
+	{
+		$this->db->where('orderID', $id);
+		$this->db->update('tb_order', $data);
 	}
 	
 	public function get_all()
@@ -70,6 +78,16 @@ class Order_model extends CI_Model
 				}
 			}
 		}
+	}
+
+	public function get_order_for_pdf($id)
+	{
+		$this->db->select('total, quantity, price, subtotal, itemName, orderDate, receiptID, v.vendorName');
+		$this->db->from('tb_order as o');
+		$this->db->join('tb_vendors as v', 'o.vendorID = v.vendorID');
+		$this->db->where('orderID', $id);
+		$query = $this->db->get();
+		return $query->result_array();
 	}
 
 	// public function get_user($id="")
