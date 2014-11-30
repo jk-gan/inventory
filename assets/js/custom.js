@@ -19,7 +19,6 @@ $(document).ready(function(){
                                 '<input type="hidden" name="arrived[]" value="0">'+
 	                                    '</tr>');
 	    addItem(document.getElementById("vendor_id").value);
-	    // if ($(".delete").length > 0) $(".delete").show();
 
 	});
 
@@ -151,15 +150,15 @@ function addItem(str)
     if (xmlhttp.readyState==4 && xmlhttp.status==200) 
     {
     	var x = document.getElementsByClassName("item");
-		var i;
-		for (i = 0; i < x.length; i++) 
-		{
-			if(x[i].value === "")
-			{
-				x[i].innerHTML=xmlhttp.responseText;
-			}
-		}
-}
+  		var i;
+  		for (i = 0; i < x.length; i++) 
+  		{
+  			if(x[i].value === "")
+  			{
+  				x[i].innerHTML=xmlhttp.responseText;
+  			}
+  		}
+    }
   }
   xmlhttp.open("GET","get_item/"+str,true);
   xmlhttp.send();

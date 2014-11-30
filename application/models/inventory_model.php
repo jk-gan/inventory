@@ -122,11 +122,12 @@ class Inventory_model extends CI_Model
 		return $query->result_array();
 	}
 
-	public function get_low_limit()
+	public function get_low_limit_by_vendor($id)
 	{
-		$this->db->select('inventoryID, itemName, quantity, lowLimit, i.vendorID, v.vendorName');
+		$this->db->select('inventoryID, itemName, quantity, lowLimit, i.vendorID, v.vendorName, i.cost');
 		$this->db->from('tb_inventory as i');
 		$this->db->join('tb_vendors as v', 'i.vendorID = v.vendorID');
+		$this->db->where('i.vendorID', $id);
 		$this->db->where('quantity < lowLimit');
 		$this->db->where('i.status', 'active');
 		$query = $this->db->get();

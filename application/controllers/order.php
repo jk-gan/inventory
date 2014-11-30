@@ -78,6 +78,20 @@ class Order extends CI_Controller
         $this->load->view('template/master', $data);
 	}
 
+	public function lowlimit($id = "")
+	{   
+		$page['title']    	= "Add Order";
+		$page['breadcrumb'] 	= "Add order";
+		
+		$data['header']   	= $this->load->view('include/header', $page, true);
+		$data['breadcrumb'] 	= $this->load->view('include/breadcrumb', $page, true);
+        $data['content'] = 'add_lowlimit_order';
+
+        $data['vendor'] = $this->vendor_model->get_vendor_by_id($id);
+        $data['lowlimit'] = $this->inventory_model->get_low_limit_by_vendor($id);
+        $this->load->view('template/master', $data);
+	}
+
 	public function all()
 	{
 		$page['title']    	= "Order";

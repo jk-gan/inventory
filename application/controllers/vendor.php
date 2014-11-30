@@ -124,7 +124,7 @@ class Vendor extends CI_Controller
 		$data['header']   	= $this->load->view('include/header', $page, true);
 		$data['breadcrumb'] 	= $this->load->view('include/breadcrumb', $page, true);
         $data['content'] = 'edit_vendor';
-        $data['vendor'] = $this->vendor_model->get_vendor($id);
+        $data['vendor'] = $this->vendor_model->get_vendor_all($id);
 
         $data['emp'] = $this->emp_model->get_all();
 

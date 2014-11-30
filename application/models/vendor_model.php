@@ -28,7 +28,7 @@ class Vendor_model extends CI_Model
 		$this->db->update('tb_vendors', $data); 
 	}	
 
-	public function get_vendor($id="")
+	public function get_vendor_all($id="")
 	{
 		$this->db->where('vendorID', $id);
 		$query = $this->db->get('tb_vendors');
@@ -36,4 +36,20 @@ class Vendor_model extends CI_Model
 		return $query->result_array();
 	}
 
+	public function get_vendors_name_n_id()
+	{
+		$this->db->select('vendorID, vendorName');
+		$this->db->where('status', 'active');
+		$query = $this->db->get('tb_vendors');
+		return $query->result_array();
+	}
+
+	public function get_vendor_by_id($id="")
+	{	
+		$this->db->select('vendorID, vendorName');
+		$this->db->where('vendorID', $id);
+		$query = $this->db->get('tb_vendors');
+
+		return $query->result_array();
+	}
 }	

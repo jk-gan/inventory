@@ -1,18 +1,23 @@
 <?php
     $_list = NULL;
     $i = 1;
-    foreach($results as $row)
+    foreach($vendors as $vendor)
     {
-        $_list .= '<tr>
-                        <td>'.$i.'</td>
-                        <td>'.$row['itemName'].'</td>
-                        <td>'.$row['quantity'].'</td>
-                        <td>'.$row['lowLimit'].'</td>
-                        <td>&nbsp;&nbsp;<a href="#"><span class="glyphicon glyphicon-shopping-cart bigger-icon" data-toggle="tooltip" data-placement="right" title="Order"></span></a>
-                        </td>
-                    </tr>';
-		$i++;
-   }
+        foreach($$vendor['vendorName'] as $row)
+        {
+            $_list .= '<tr>
+                            <td>'.$i.'</td>
+                            <td>'.$row['itemName'].'</td>
+                            <td>'.$row['quantity'].'</td>
+                            <td>'.$row['lowLimit'].'</td>
+                            <td>&nbsp;&nbsp;<a href="'.base_url().'order/lowlimit/'.$row['vendorID'].'"><span class="glyphicon glyphicon-shopping-cart bigger-icon" data-toggle="tooltip" data-placement="right" title="Order"></span></a>
+                            </td>
+                        </tr>';
+            $i++;
+        }
+    }
+
+    
 ?>
 
 <?php echo $header; ?>
