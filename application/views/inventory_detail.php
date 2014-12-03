@@ -1,3 +1,4 @@
+<input type="hidden" id="menu-id" value="inventory">
 <div class="row">
 	<div class="detail">
 		<div class="first-col">

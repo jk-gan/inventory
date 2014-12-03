@@ -1,7 +1,58 @@
 <ul id="sidemenu">
-    <a href="<?php echo base_url(); ?>home" class="nav-header"><li>Home</li></a>
+    
+     <li class="actived">
+        <a href="<?php echo base_url(); ?>home">
+            <span class="icon glyphicon glyphicon-home"></span>
+            <span class="text">Home</span>
+        </a>
+     </li>
 
-    <a href="#inventory-menu" class="nav-header" data-toggle="collapse"><li>Inventory <span class="glyphicon glyphicon-chevron-down"></span></li></a>
+     <li id="category">
+        <a href="<?php echo base_url();?>category/all_category">
+            <span class="icon glyphicon glyphicon-tags"></span>
+            <span class="text">Category</span>
+        </a>
+     </li>
+
+
+    
+     <li id="inventory">
+     <a href="<?php echo base_url();?>inventory" class="nav-header">
+        <span class="icon glyphicon glyphicon-book"></span>
+        <span class="text">Inventory</span>
+        </a>
+     </li>
+
+    
+     <li id="order">
+     <a href="<?php echo base_url();?>order" class="nav-header">
+        <span class="icon glyphicon glyphicon-list-alt"></span>
+        <span class="text">Order</span>
+        </a>
+     </li>
+
+    
+     <li id="sale">
+     <a href="<?php echo base_url();?>sale/all" class="nav-header">
+        <span class="icon glyphicon glyphicon-barcode"></span>
+        <span class="text">Sale</span>
+        </a>
+     </li>
+
+    
+     <li id="vendor">
+     <a href="<?php echo base_url();?>vendor" class="nav-header">
+        <span class="icon glyphicon glyphicon-user"></span>
+        <span class="text">Vendor</span>
+        </a>
+     </li>
+<!-- 
+    <a href="#inventory-menu" class="nav-header" data-toggle="collapse">
+        <li>
+            Inventory 
+            <span class="glyphicon glyphicon-chevron-down"></span>
+        </li>
+    </a>
     <ul id="inventory-menu" class="collapse in">
         <a href="<?php echo base_url();?>category/all_category" class="nav-content"><li>Category List</li></a>
         <a href="<?php echo base_url();?>inventory" class="nav-content"><li>Inventory List</li></a>
@@ -26,12 +77,17 @@
         <a href="<?php echo base_url();?>vendor" class="nav-content"><li>Vendor List</li></a>
         <a href="<?php echo base_url();?>vendor/add" class="nav-content"><li>Add Vendor</li></a>
     </ul>
-
+ -->
   <!--   <li><a href="#">Ex-Wallet</a></li>
     <li><a href="#">Wallet Transfer</a></li>
     <li><a href="#">Registration</a></li>
     <li><a href="#">Client List</a></li>
     <li><a href="#">Placement View</a></li>
     <li><a href="#">Resource</a></li> -->
-    <a href="<?php echo base_url(); ?>users/logout" class="nav-header"><li>Logout</li></a>
+    <li>
+        <a href="<?php echo base_url(); ?>users/logout" class="nav-header">
+        <span class="glyphicon glyphicon-share-alt"></span>
+        <span class="text">Logout</span>
+        </a>
+    </li>
 </ul>

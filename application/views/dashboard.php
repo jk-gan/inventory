@@ -22,6 +22,7 @@
 
 <?php echo $header; ?>
 <?php echo $breadcrumb; ?>
+<input type="hidden" id="menu-id" value="home">
 <div class="container-fluid">
     <div class="row-fluid">
     <p>These items are in low limit : </p>

@@ -19,6 +19,7 @@ $i++;
 
 <?php echo $header; ?>
 <?php echo $breadcrumb; ?>
+<input type="hidden" id="menu-id" value="vendor">
 <div class="container-fluid">
     <div class="row-fluid">
 

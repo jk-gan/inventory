@@ -17,6 +17,7 @@ $i++;
 
 <?php echo $header; ?>
 <?php echo $breadcrumb; ?>
+<input type="hidden" id="menu-id" value="category">
 <div class="container-fluid">
     <div class="row-fluid">
         <table width="100%" border="1" cellspacing="1" cellpadding="5" class="table table-hover">

@@ -37,6 +37,7 @@ for($i = 0; $i < sizeof($id); $i++ )
 
 <?php echo $header; ?>
 <?php echo $breadcrumb; ?>
+<input type="hidden" id="menu-id" value="order">
 <div class="container-fluid">
     <div class="row-fluid">
         

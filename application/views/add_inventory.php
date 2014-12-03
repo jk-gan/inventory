@@ -1,5 +1,6 @@
 <?php echo $header; ?>
 <?php echo $breadcrumb; ?>
+<input type="hidden" id="menu-id" value="inventory">
 <div class="container-fluid">
     <div class="row-fluid">
         

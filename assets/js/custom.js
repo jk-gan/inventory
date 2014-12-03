@@ -6,9 +6,23 @@ $(".quantity_r").blur(function(){
 
 $(document).ready(function(){
 
+  var li_name = document.getElementById('menu-id').value;
+  var id_name = '#'+li_name;
+
+  if(li_name != "home")
+  {
+    $(id_name).addClass('actived').siblings().removeClass('actived');  
+  } 
+  
+
+  $('#sidemenu li').click(function(){
+      $(this).addClass('actived').siblings().removeClass('actived');
+  });
+
 	$('body').tooltip({
 		selector: '[data-toggle="tooltip"]'
 	});
+
 
 	$("#addrow").click(function(){
 	    $(".order-row:last").after('<tr class="order-row">' + 

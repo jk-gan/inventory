@@ -3,7 +3,7 @@
     foreach($lowlimit as $row)
     {
         $quantity = $row['lowLimit']-$row['quantity'];
-        $_list .= '<tr class="order-row" style="border-bottom: 1px solid gray">
+        $_list .= '<tr class="order-row">
                   <td>
                     <input type="hidden" class="form-control-static item" name="item[]" value="'.$row['inventoryID'].'">'.$row['itemName'].'
                   </td>
@@ -18,6 +18,7 @@
 
 <?php echo $header; ?>
 <?php echo $breadcrumb; ?>
+<input type="hidden" id="menu-id" value="order">
 <div class="container-fluid">
     <div class="row-fluid">
         
