@@ -78,8 +78,9 @@ class Order extends CI_Controller
         $this->load->view('template/master', $data);
 	}
 
-	public function lowlimit($id = "")
+	public function lowlimit()
 	{   
+		$id = $_GET['num'];
 		$page['title']    	= "Add Order";
 		$page['breadcrumb'] 	= "Add order";
 		

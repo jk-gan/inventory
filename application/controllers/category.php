@@ -112,6 +112,6 @@ class Category extends CI_Controller
 		$this->category_model->delete($id);
 		redirect('category');
 	}
-
+	
 
 }

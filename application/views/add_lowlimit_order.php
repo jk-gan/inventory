@@ -5,7 +5,7 @@
         $quantity = $row['lowLimit']-$row['quantity'];
         $_list .= '<tr class="order-row">
                   <td>
-                    <input type="hidden" class="form-control-static item" name="item[]" value="'.$row['inventoryID'].'">'.$row['itemName'].'
+                    <input type="hidden" class="form-control-static" name="item[]" value="'.$row['inventoryID'].'">'.$row['itemName'].'
                   </td>
                   <td><input class="quantity_r form-control" type="number" min="0" name="quantity[]" value="'.$quantity.'" onchange="updateSubPrice(this.value, this.parentNode.parentNode)"></td>
                   <td><input class="price_r form-control" type="text" name="price[]" value="'.number_format($row['cost'], 2).'" /></td>

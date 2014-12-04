@@ -10,7 +10,7 @@
                             <td>'.$row['itemName'].'</td>
                             <td>'.$row['quantity'].'</td>
                             <td>'.$row['lowLimit'].'</td>
-                            <td>&nbsp;&nbsp;<a href="'.base_url().'order/lowlimit/'.$row['vendorID'].'"><span class="glyphicon glyphicon-shopping-cart bigger-icon" data-toggle="tooltip" data-placement="right" title="Order"></span></a>
+                            <td>&nbsp;&nbsp;<a href="'.base_url().'order/lowlimit?num='.$row['vendorID'].'"><span class="glyphicon glyphicon-shopping-cart bigger-icon" data-toggle="tooltip" data-placement="right" title="Order"></span></a>
                             </td>
                         </tr>';
             $i++;

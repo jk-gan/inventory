@@ -174,7 +174,7 @@ function addItem(str)
   		}
     }
   }
-  xmlhttp.open("GET","get_item/"+str,true);
+  xmlhttp.open("GET","get_item/"+str, true);
   xmlhttp.send();
 }
 
