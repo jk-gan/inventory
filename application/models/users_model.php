@@ -5,6 +5,8 @@ class Users_model extends CI_Model
 	// Get the specific user data for login purpose.
 	public function get_users($username = "")
 	{
+		$this->db->select('empID, name, position, password');
+		$this->db->where('status', 'active');
 		$this->db->where('username', $username);
 		$query = $this->db->get('tb_employee');
 		
@@ -15,8 +17,8 @@ class Users_model extends CI_Model
 			$data = array(
 				'id'         =>	$row[0]['empID'],
 				'name'       => $row[0]['name'],
+				'position'	=>	$row[0]['position'],
 				'password'   => $row[0]['password'],
-				'last_login' => $row[0]['lastLogin'],
 				'isSuccess'  => true
 			);
 		}
@@ -36,4 +38,13 @@ class Users_model extends CI_Model
 		$this->db->update('tb_employee', $info);
 	}
 
+	public function get_all()
+	{
+		$this->db->select('empID, name, position, lastLogin');
+		$this->db->from('tb_employee');
+		$this->db->where('status', 'active');
+		$query = $this->db->get();
+
+		return $query->result_array();
+	}
 }

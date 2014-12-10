@@ -2,6 +2,21 @@
 
 class Users extends CI_Controller 
 {
+	public function __construct()
+	{
+        parent::__construct();
+        $this->load->model('users_model');
+        
+  //      	if($this->session->userdata('is_logged_in'))
+		// {
+		// 	redirect('home');
+		// }
+		// else
+		// {
+		// 	$this->load->view('login_view');
+		// }
+    }
+
 	public function index()
 	{
 		if($this->session->userdata('is_logged_in'))
@@ -35,20 +50,35 @@ class Users extends CI_Controller
 					if($password != $_data['password'])
 					{
 						//$errmsg .= __("Invalid username or password.");
-						// 	$this->session->set_flashdata('errmsg', 'Invalid username or password.');
+							$this->session->set_flashdata('errmsg', 'Invalid username or password.');
 						 	redirect('users');
 					}
 
-					$data = array(
+					if($_data['position'] == "emp")
+					{
+						$data = array(
 						'name' 	=> $_data['name'],
 						'id'	=> $_data['id'],
-						'is_logged_in' 	=> true
-					);
-					$this->session->set_userdata($data);
+						'is_logged_in' 	=> true,
+						'admin_logged_in' => false
+						);
+						$this->session->set_userdata($data);
+					}
+					else if($_data['position'] == "manager")
+					{
+						$data = array(
+						'name' 	=> $_data['name'],
+						'id'	=> $_data['id'],
+						'is_logged_in' => true,
+						'admin_logged_in' 	=> true
+						);
+						$this->session->set_userdata($data);
+					}
+					
 					
 					$now = time();
 					$date = date ("Y-m-d G:i:s", $now);
-					$ip_addr = $this->input->ip_address();
+					// $ip_addr = $this->input->ip_address();
 					
 					$info = array
 							(
@@ -75,5 +105,23 @@ class Users extends CI_Controller
 	{
 		$this->session->sess_destroy();
 		redirect('users');
+	}
+
+	public function all()
+	{
+		$page['title'] = 'Users';
+		$page['breadcrumb'] = 'Users';
+
+		$data['header'] = $this->load->view('include/header', $page, TRUE);
+		$data['breadcrumb'] = $this->load->view('include/breadcrumb', $page, TRUE);
+
+		$data['content'] = 'view_users';
+		$data['result'] = $this->users_model->get_all();
+		$this->load->view('template/master', $data);
+	}
+
+	public function profile()
+	{
+		
 	}
 }

@@ -34,5 +34,6 @@ $i++;
             </tr>
             <?php echo $_list; ?>
         </table>
+        <a href="<?php echo base_url();?>vendor/add"><span class="glyphicon glyphicon-plus btn btn-primary">&nbsp;New</span></a>
     </div>
 </div>

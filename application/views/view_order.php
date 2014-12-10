@@ -32,5 +32,6 @@
             </tr>
             <?php echo $_list; ?>
         </table>
+        <a href="<?php echo base_url();?>order/add"><span class="glyphicon glyphicon-plus btn btn-primary">&nbsp;New</span></a>
     </div>
 </div>

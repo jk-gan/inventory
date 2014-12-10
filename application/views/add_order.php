@@ -105,7 +105,7 @@
               <td>&nbsp;</td>
             </tr>
             <tr>
-                <td>&nbsp;</td>
+                <td><button type="button" id="back-btn" class="btn btn-default">Back</button></td>
                 <td><input type="submit" name="add" value="Add" /></td>
             </tr>
         </table>

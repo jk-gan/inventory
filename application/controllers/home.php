@@ -10,6 +10,7 @@ class Home extends CI_Controller
         
         if(!$this->session->userdata('is_logged_in'))
 		{
+			$this->session->set_flashdata('errmsg', 'Please login first.');
             redirect('users');
         }
     }

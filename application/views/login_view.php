@@ -11,6 +11,7 @@
 </head>
 <body>
 <div class="login-body">
+	<?php echo $this->session->flashdata('errmsg');?>
 	<?php echo form_open('users/login'); ?>
 	<div class="container">
 	<div class="row">

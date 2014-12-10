@@ -8,7 +8,8 @@ class Sale extends CI_Controller
         $this->load->model('sale_model');
         $this->load->model('inventory_model');
         $this->load->library("Pdf");
-        
+        $this->load->library('pagination');
+
         if(!$this->session->userdata('is_logged_in'))
 		{
             redirect('users');
@@ -99,18 +100,32 @@ class Sale extends CI_Controller
 		$data['header']   	= $this->load->view('include/header', $page, true);
 		$data['breadcrumb'] 	= $this->load->view('include/breadcrumb', $page, true);
         $data['content']   = 'view_sale';
-		
-		// $config["base_url"] = base_url()."vendor/index";
-		// $config["total_rows"] = $this->payment_model->record_count();
-		// $config["per_page"] = 10;
-		// $config["uri_segment"] = 3;
 
-		// $this->pagination->initialize($config);
-		// $start = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-		// $data["results"] = $this->payment_model->limit($config["per_page"], $start);
-		// $data["links"] = $this->pagination->create_links();
+        $config['full_tag_open'] = "<ul class='pagination pagination-sm'>";
+		$config['full_tag_close'] ="</ul>";
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
+		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
+		$config['next_tag_open'] = "<li>";
+		$config['next_tagl_close'] = "</li>";
+		$config['prev_tag_open'] = "<li>";
+		$config['prev_tagl_close'] = "</li>";
+		$config['first_tag_open'] = "<li>";
+		$config['first_tagl_close'] = "</li>";
+		$config['last_tag_open'] = "<li>";
+		$config['last_tagl_close'] = "</li>";
 		
-        $data['results'] = $this->sale_model->get_all();
+		$config["base_url"] = base_url()."sale/index";
+		$config["total_rows"] = $this->sale_model->count_sales();
+		$config["per_page"] = 10;
+		$config["uri_segment"] = 3;
+
+		$this->pagination->initialize($config);
+		$start = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+		$data["results"] = $this->sale_model->limit($config["per_page"], $start);
+		$data["links"] = $this->pagination->create_links();
+		
         $this->load->view('template/master', $data); 
     }
 
@@ -269,6 +284,48 @@ public function create_pdf($id = "")
     //============================================================+
     // END OF FILE
     //============================================================+
+    }
+
+    public function get_data($month = 0)
+    {
+  //   	$sale = $this->sale_model->get_sale_by_month($month);
+		// echo "[['Month', 'Sales', 'Profit'],";
+		// echo "['".$month."', ".$sale[0]['total'].", ".$sale[0]['totalProfit']."]";
+	 //    echo ']';
+
+
+    	$table['cols'] = array(
+
+	    // Labels for your chart, these represent the column titles
+	    // Note that one column is in "string" format and another one is in "number" format as pie chart only required "numbers" for calculating percentage and string will be used for column title
+	    array('label' => 'Month', 'type' => 'string'),
+	    array('label' => 'Sales', 'type' => 'number'),
+	    array('label' => 'Profit', 'type' => 'number')
+
+		);
+
+    	$sale = $this->sale_model->get_sale_by_month($month);
+
+		foreach($sale as $row) {
+	    $temp = array();
+	    // the following line will be used to slice the Pie chart
+	    $temp[] = array('v' => $month); 
+
+	    // Values of each slice
+	    $temp[] = array('v' => (int) $row['total']); 
+	    $temp[] = array('v' => (int) $row['totalProfit']); 
+	    $rows[] = array('c' => $temp);
+
+		}
+
+		$table['rows'] = $rows;
+		$jsonTable = json_encode($table);
+
+		echo $jsonTable;
+
+
+  //   	$string = file_get_contents(base_url()."assets/js/sampleData.json");
+		// echo $string;
     }
 }
 

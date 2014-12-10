@@ -58,6 +58,29 @@ class Sale_model extends CI_Model
 		$query = $this->db->get('tb_inventory');
 		return $query->result_array();
 	}
+
+	public function get_sale_by_month($month)
+	{
+		$this->db->select_sum('totalProfit');
+		$this->db->select_sum('total');
+		$this->db->where('month(dateAdded)', $month);
+		$query = $this->db->get('tb_sales');
+		return $query->result_array(); 
+	}
+
+	public function count_sales()
+	{
+		return $this->db->count_all_results('tb_sales');
+	}
+
+	public function limit($limit, $start)
+	{
+		$this->db->select('*');
+		$this->db->from('tb_sales');
+		$this->db->limit($limit, $start);
+		$query = $this->db->get();
+		return $query->result_array();	
+	}
 	// public function limit($limit, $start) 
 	// {   
 	// 	$this->db->select('*');

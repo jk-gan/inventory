@@ -38,5 +38,6 @@ $i++;
             <?php echo $_list; ?>
         </table>
         <?php echo $links;?>
+        <a href="<?php echo base_url();?>inventory/add"><span class="glyphicon glyphicon-plus btn btn-primary">&nbsp;New</span></a>
     </div>
 </div>
