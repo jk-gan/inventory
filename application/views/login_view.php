@@ -13,6 +13,7 @@
 <div class="login-body">
 	<?php echo $this->session->flashdata('errmsg');?>
 	<?php echo form_open('users/login'); ?>
+	<?php echo validation_errors();?>
 	<div class="container">
 	<div class="row">
 	<!-- div class="col-lg-4 col-lg-offset-1">

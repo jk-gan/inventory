@@ -35,6 +35,7 @@ class Users extends CI_Controller
 		{	
 			$this->form_validation->set_rules('username', 'Username', 'required');
 			$this->form_validation->set_rules('password', 'Password', 'required');
+			$this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>', '</div>');
 		
 			if ($this->form_validation->run())
 			{
@@ -54,11 +55,12 @@ class Users extends CI_Controller
 						 	redirect('users');
 					}
 
-					if($_data['position'] == "emp")
+					if($_data['position'] == "staff")
 					{
 						$data = array(
 						'name' 	=> $_data['name'],
 						'id'	=> $_data['id'],
+						'status' => $_data['status'],
 						'is_logged_in' 	=> true,
 						'admin_logged_in' => false
 						);
@@ -69,6 +71,7 @@ class Users extends CI_Controller
 						$data = array(
 						'name' 	=> $_data['name'],
 						'id'	=> $_data['id'],
+						'status' => $_data['status'],
 						'is_logged_in' => true,
 						'admin_logged_in' 	=> true
 						);
@@ -88,7 +91,10 @@ class Users extends CI_Controller
 					
 					$this->users_model->update_login($_data['id'], $info);
 					
-					redirect('home');
+					if($_data['status'] == "new")
+						redirect('employee/new_user');
+					else
+						redirect('home');
 				}
 				else
 				{
@@ -120,8 +126,88 @@ class Users extends CI_Controller
 		$this->load->view('template/master', $data);
 	}
 
-	public function profile()
+	public function profile($id="")
 	{
-		
+		$page['title'] = 'User Profile';
+		$page['breadcrumb'] = 'User Profile';
+
+		$data['header'] = $this->load->view('include/header', $page, TRUE);
+		$data['breadcrumb'] = $this->load->view('include/breadcrumb', $page, TRUE);
+
+		$data['content'] = 'check_user';
+		$data['employee'] = $this->users_model->get_user_by_id($id);
+		$this->load->view('template/master', $data);
+	}
+
+	public function add()
+	{
+		if ($this->input->server('REQUEST_METHOD') === 'POST')
+		{
+            $this->form_validation->set_rules('name', 'Name', 'required');
+            $this->form_validation->set_rules('position', 'Position', 'required');
+			$this->form_validation->set_rules('username', 'Username', 'required');
+			$this->form_validation->set_rules('password', 'Password', 'required');
+			$this->form_validation->set_rules('con_pass', 'Confirm Password', 'required|matches[password]');
+			$this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>', '</div>');
+
+			if($this->form_validation->run())
+			{
+				$insert = array(
+					'name'	=>	$this->input->post('name'),
+					'position'	=>	$this->input->post('position'),
+					'username'	=>	$this->input->post('username'),
+					'password'	=>	$this->input->post('password'),
+					'status'		=>	'new',
+					'dateAdded'	=>	date("Y-m-d H:i:s")
+					);
+
+				$this->users_model->add($insert);
+				redirect('users/all');
+			}
+        }
+        
+		$page['title']    	= "Add Employee";
+		$page['breadcrumb'] 	= "Add Employee";
+	
+		$data['header']   	= $this->load->view('include/header', $page, true);
+		$data['breadcrumb'] 	= $this->load->view('include/breadcrumb', $page, true);
+        $data['content'] = 'add_user';
+        $this->load->view('template/master', $data); 
+	}
+
+	public function edit($id="")
+	{
+		if ($this->input->server('REQUEST_METHOD') === 'POST')
+		{
+            $this->form_validation->set_rules('name', 'Name', 'required');
+            $this->form_validation->set_rules('position', 'Position', 'required');
+			$this->form_validation->set_rules('username', 'Username', 'required');
+			$this->form_validation->set_rules('password', 'Password', 'required');
+			$this->form_validation->set_rules('con_pass', 'Confirm Password', 'required|matches[password]');
+			$this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>', '</div>');
+
+			if($this->form_validation->run())
+			{
+				$insert = array(
+					'name'	=>	$this->input->post('name'),
+					'position'	=>	$this->input->post('position'),
+					'username'	=>	$this->input->post('username'),
+					'password'	=>	$this->input->post('password'),
+					'status'		=>	'new',
+					'dateAdded'	=>	date("Y-m-d H:i:s")
+					);
+
+				$this->users_model->add($insert);
+				redirect('users/all');
+			}
+        }
+        
+		$page['title']    	= "Edit Employee";
+		$page['breadcrumb'] 	= "Edit Employee";
+	
+		$data['header']   	= $this->load->view('include/header', $page, true);
+		$data['breadcrumb'] 	= $this->load->view('include/breadcrumb', $page, true);
+        $data['content'] = 'edit_user';
+        $this->load->view('template/master', $data); 
 	}
 }

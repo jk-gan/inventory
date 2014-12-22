@@ -13,6 +13,11 @@ class Home extends CI_Controller
 			$this->session->set_flashdata('errmsg', 'Please login first.');
             redirect('users');
         }
+
+        if($this->session->userdata('status') == "new")
+        {
+        	redirect('employee/new_user');
+        }
     }
 
 	public function index()

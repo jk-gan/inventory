@@ -11,6 +11,10 @@ class Category extends CI_Controller
 		{
             redirect('users');
         }
+        if($this->session->userdata('status') == "new")
+        {
+        	redirect('employee/new_user');
+        }
     }
 
 	public function index()
